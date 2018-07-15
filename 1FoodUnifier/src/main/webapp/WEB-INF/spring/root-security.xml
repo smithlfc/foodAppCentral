@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+<security:http>
+<security:intercept-url pattern="/all/**" access="hasRole('USER')" />
+<security:form-login login-page="/login" authentication-failure-url="/login?error" authentication-success-forward-url="/all/home"/>
+<security:logout  logout-url="/logout" /> 
+<security:custom-filter ref="jwtfilter" after="CSRF_FILTER"/>	
+<security:csrf/>
+</security:http>
+
+
+ <security:authentication-manager >
+	<security:authentication-provider ref="authprovider">
+	  <!-- <security:jdbc-user-service data-source-ref="datasource"
+	  users-by-username-query="select user_name,user_password,user_enabled from users where user_name=?"
+	  authorities-by-username-query="select user_name,user_authority from users where user_name=?"
+	  />  -->
+	  
+	  
+	</security:authentication-provider>
+</security:authentication-manager>
+
+
+<bean id="jwtfilter" class="com.xmith.sweb.TokenFilter">
+<constructor-arg ref="tokenutility"></constructor-arg>
+</bean>
+
+<bean id="tokenutility" class="com.xmith.sweb.TokenGenerator"/>
+<bean id="authprovider" class="com.xmith.authAndAuthr.CustomAuthentacationProvider"/>
+
+
+</beans>
