@@ -23,8 +23,10 @@ public void initialize(CheckUserExist constraintAnnotation) {
 @Override
 public boolean isValid(String value, ConstraintValidatorContext context) {
 if(userservices.getUserId(value)==null){
+//new user	
 return true;
 }
+//old user
 return false;
 }
 
