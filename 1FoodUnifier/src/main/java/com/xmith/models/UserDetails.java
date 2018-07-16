@@ -6,9 +6,12 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.xmith.annotations.CheckUserExist;
+
 public class UserDetails {
 private String user_id;
 @Size(min=3,max=10,message="user first name must have max length 7")
+@CheckUserExist()
 private String user_first_name;
 @Size(min=3,max=10,message="user last name must have max length 7")
 private String user_last_name;

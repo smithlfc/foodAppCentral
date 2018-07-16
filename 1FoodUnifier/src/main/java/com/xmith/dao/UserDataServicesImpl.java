@@ -56,6 +56,11 @@ public class UserDataServicesImpl implements UserDataServices {
 	    	
 	    }
 	    logger.info("getUserId dao exit");
+	    
+if(user==null){
+return null;	
+}
+	    
 		return user.getUser_id();
 	}
 
