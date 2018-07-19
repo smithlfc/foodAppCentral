@@ -1,14 +1,25 @@
 package com.xmith.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.xmith.annotations.CheckUserExist;
 
+
 public class UserDetails {
+@Id
+@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq")
+@GenericGenerator(name="seq",strategy="uuid")
 private String user_id;
 @Size(min=3,max=10,message="user first name must have max length 7")
 @CheckUserExist()

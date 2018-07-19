@@ -105,11 +105,17 @@ return modelAndView;
 }
 else{
 logger.info("binding success");	
-//insert all the stuff in db
-//give login page
+boolean insertUserRegDetails = services.insertUserRegDetails(userDetails);
+if(insertUserRegDetails){
+ModelAndView modelAndView = new ModelAndView("login");
+//display message in front end
+return modelAndView;
+}
 }
 logger.info("setRegistration :Exit");
-return null;	
+ModelAndView modelAndView = new ModelAndView("registration");	
+//display message in front end
+return modelAndView;
 }
 
 

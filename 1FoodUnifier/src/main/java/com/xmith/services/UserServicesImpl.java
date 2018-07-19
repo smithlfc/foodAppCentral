@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.xmith.dao.UserDataServices;
 import com.xmith.dao.UserDataServicesImpl;
+import com.xmith.models.UserAttempts;
+import com.xmith.models.UserDetails;
 import com.xmith.models.Users;
 
 
@@ -81,5 +83,20 @@ public class UserServicesImpl implements UserServices {
 	}
     
     }
+
+@Override
+public boolean insertUserRegDetails(UserDetails userDetails) {
+logger.info("insertUserRegDetails :Entry");	
+
+String tem=dataservice.saveUsersDetails(userDetails);
+logger.info("dummy print"+ tem);
+
+		
+logger.info("insertUserRegDetails :Exit");	
+return false;
+}
+
+
+
 
 }

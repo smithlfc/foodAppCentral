@@ -30,51 +30,46 @@ public class TokenFilter extends GenericFilterBean{
 	
 
 	@Override
-	public void doFilter(ServletRequest request1, ServletResponse response1, FilterChain chain)
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest requestu=(HttpServletRequest) request1;
-		StringBuffer requestURL = requestu.getRequestURL();
-		if(requestURL.toString().contains("secure")){
+HttpServletRequest httprequest=(HttpServletRequest)request;		
+HttpServletResponse httpresponse=(HttpServletResponse)response;
 
-			// TODO Auto-generated method stub
-			try{
-				HttpServletRequest request=(HttpServletRequest) request1;
-				HttpServletResponse response=(HttpServletResponse) response1;
-				String aheader=request.getHeader("Authorization");
-				if(!aheader.isEmpty()){
-					if(this.generator.validateToken(aheader)){
-						Authentication authentication=this.generator.getauthenticated(aheader);
-						SecurityContextHolder.getContext().setAuthentication(authentication);
-						logger.info("security context");
-					}
-					else{
-						logger.info("token validation error");
-					}
-				}
-				else{
-					logger.info("header empty");
-				}
-				chain.doFilter(request1, response1);
-				SecurityContextHolder.getContext().setAuthentication(null);
-				
-			}
-			catch(Exception e){
-				
-				logger.info("token auth problem");
-				((HttpServletResponse) response1).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			}
-			
-		
-		}
-		else{
-			chain.doFilter(request1, response1);
-		}
-		
-		
-		
-		
+StringBuffer requestURL = httprequest.getRequestURL();
+if(requestURL.toString().contains("secure")){
+try{
+String aheader=httprequest.getHeader("Authorization");
+if(!aheader.isEmpty()){
+	if(this.generator.validateToken(aheader)){
+		Authentication authentication=this.generator.getauthenticated(aheader);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		logger.info("security context");
+		//proper
+		chain.doFilter(httprequest, httpresponse);	
+		SecurityContextHolder.getContext().setAuthentication(null);
 	}
+	else{
+		logger.info("token validation error");
+		httpresponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+	}	
+}
+
+else{
+	logger.info("header empty");
+	httpresponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+}
+}
+catch (Exception e){
+e.printStackTrace();
+httpresponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+}
+}
+else{
+chain.doFilter(httprequest, httpresponse);	
+SecurityContextHolder.getContext().setAuthentication(null);
+}
 	
 	
+}
 	
 }

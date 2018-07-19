@@ -9,7 +9,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.loader.collection.OneToManyJoinWalker;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.xmith.models.UserAttempts;
+import com.xmith.models.UserDetails;
 import com.xmith.models.Users;
-import com.xmith.sweb.HomeController;
 
 @Component
 public class UserDataServicesImpl implements UserDataServices {
@@ -177,5 +176,83 @@ return null;
 	logger.info("updateAttempts : Exit");
 	return executeUpdate;
 	}
+
+
+
+
+@Override
+public String saveUsers(Users users) {
+logger.info("saveUsers :Entry");
+Session openSession = sfactory.openSession();
+Transaction beginTransaction = openSession.beginTransaction();
+Serializable save=null;
+try{
+save= openSession.save(users);	
+beginTransaction.commit();
+}
+catch(Exception e){
+logger.info("exception in saveUsers");	
+beginTransaction.rollback();
+}
+if(save==null){
+return null;	
+}
+logger.info("saveUsers :Exit");
+return "proper";
+}
+
+
+@Override
+public String saveUsersDetails(UserDetails userdetails) {
+logger.info("saveUsersDetails :Entry");
+Session openSession = sfactory.openSession();
+Transaction beginTransaction = openSession.beginTransaction();
+Serializable save=null;
+try{
+save= openSession.save(userdetails);	
+beginTransaction.commit();
+}
+catch(Exception e){
+logger.info("exception in saveUsersDetails");	
+e.printStackTrace();
+beginTransaction.rollback();
+}
+if(save==null){
+return null;	
+}
+logger.info("saveUsersDetails :Exit");
+return Serializable.class.toString() ;
+
+}
+
+
+@Override
+public String saveUsersAttempts(UserAttempts userAttempts) {
+logger.info("saveUsersAttempts :Entry");
+Session openSession = sfactory.openSession();
+Transaction beginTransaction = openSession.beginTransaction();
+Serializable save=null;
+try{
+save= openSession.save(userAttempts);	
+beginTransaction.commit();
+}
+catch(Exception e){
+logger.info("exception in saveUsersAttempts");	
+beginTransaction.rollback();
+}
+if(save==null){
+return null;	
+}
+logger.info("saveUsersAttempts :Exit");
+return "proper";
+}
+
+
+
+
+
+
+
+
 
 }

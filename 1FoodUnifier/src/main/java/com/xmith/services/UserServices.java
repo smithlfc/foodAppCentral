@@ -1,5 +1,6 @@
 package com.xmith.services;
 
+import com.xmith.models.UserDetails;
 import com.xmith.models.Users;
 
 public interface UserServices {
@@ -9,7 +10,7 @@ public interface UserServices {
 	public Users getuserService(String userid);
 	public String[] authenticateUser(String username);
 	public boolean updateAttemptsService(String userid,String attempts);
-
+	public boolean insertUserRegDetails(UserDetails userDetails);
 	
 
 }

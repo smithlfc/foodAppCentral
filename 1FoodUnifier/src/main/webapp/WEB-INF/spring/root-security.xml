@@ -8,8 +8,8 @@
 <security:http>
 <security:intercept-url pattern="/all/**" access="hasRole('USER')" />
 <security:form-login login-page="/login" authentication-failure-url="/login?error" authentication-success-forward-url="/all/home"/>
-<security:logout  logout-url="/logout" /> 
-<security:custom-filter ref="jwtfilter" after="CSRF_FILTER"/>	
+<security:logout  logout-url="/logout"  delete-cookies="JSESSIONID" logout-success-url="/login"/> 
+<security:custom-filter ref="jwtfilter" after="LOGIN_PAGE_FILTER" />	
 <security:csrf/>
 </security:http>
 
