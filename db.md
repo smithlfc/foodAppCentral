@@ -24,3 +24,6 @@ Spring based App.
    (    "USER_ID" VARCHAR2(10),
         "USER_ATTEMPTS" NUMBER,
          PRIMARY KEY ("USER_ID")
+
+
+https://stackoverflow.com/questions/3112972/spring-security-customize-logout-handler
