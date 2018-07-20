@@ -42,7 +42,7 @@ String aheader=httprequest.getHeader("Authorization");
 if(!aheader.isEmpty()){
 	if(this.generator.validateToken(aheader)){
 		Authentication authentication=this.generator.getauthenticated(aheader);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		//SecurityContextHolder.getContext().setAuthentication(authentication);
 		logger.info("security context");
 		//proper
 		chain.doFilter(httprequest, httpresponse);	
