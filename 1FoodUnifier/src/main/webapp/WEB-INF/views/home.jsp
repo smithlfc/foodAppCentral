@@ -16,6 +16,7 @@
 <div></div>
 <div>
 <span ng-init="c.tokenReceived='${webtoken}' "></span>
+
 </div>
 
 <div>
@@ -23,9 +24,10 @@
 </div>
 <!-- logout only post and csrf required  -->
 
-<form action="<c:url value="/logout"/>" method="post">
+<form id="logout"  action="<c:url value="/logout"/>" method="post">
 <input type="hidden"  name="${_csrf.parameterName}" value="${_csrf.token}">
-<input type="submit" value="logout">
+
+<input id="lbutton" type="submit" value="logout">
 </form>
 	
 </body>

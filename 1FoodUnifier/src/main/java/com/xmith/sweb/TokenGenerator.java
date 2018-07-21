@@ -4,6 +4,7 @@ import java.security.PublicKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Random;
@@ -71,12 +72,17 @@ public class TokenGenerator {
 	//	logger.info("user name from db is "+userServices.getUserId("sdsd"));
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String lname=authentication.getName();
-		
+		Calendar calendar=Calendar.getInstance();
+		logger.info("Currnt time: "+calendar.getTime()+"");
+		calendar.add(Calendar.SECOND,600);
 		JWTClaimsSet claimsSet=new JWTClaimsSet.Builder()
 			               .issuer("max").audience("all").jwtID(""+jwtID)
-			               .expirationTime(new Date(new Date().getTime()*(60*5000)))
+			               .expirationTime(calendar.getTime())
 			               .claim("userid", uservices.getUserId(lname)).build();
 		//update token id in table with logged in name
+		
+		
+	
 		
 		logger.info("token updating");
 		uservices.updateTokenService(lname, jwtID+"");
@@ -190,8 +196,20 @@ public class TokenGenerator {
 			      logger.info("validate token / verify");
 			      boolean verify = signedJWT.verify(jwsVerifier);
 			      if(verify){
-					return true;	
+			    	  logger.info("validate "); 
+			    	//check expiry
+			    	  Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+			    	  Calendar calendar=Calendar.getInstance();
+			    	  Date currentdate = calendar.getTime();
+			    	  logger .info("expiry date received is "+expirationTime);
+			    	  if(currentdate.before(expirationTime)){
+			    		  logger.info("token not expired");  
+			    			return true; 
+			    	  }
+			    		return false;
+					
 					}
+			      logger.info("check expiry time");
 			      return false;
 				}
 				else{
