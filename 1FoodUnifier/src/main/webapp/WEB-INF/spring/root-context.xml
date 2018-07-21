@@ -29,9 +29,10 @@
 <bean id="sessionfactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 <property name="dataSource" ref="datasource"/>
 <property name="hibernateProperties">
-<value>
- hibernate.dialect=org.hibernate.dialect.OracleDialect
-</value>
+<props>
+<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+<prop key="javax.persistence.validation.factory">validator</prop>
+</props>
 </property>
 <property name="packagesToScan">
 <value>com.xmith.models</value>

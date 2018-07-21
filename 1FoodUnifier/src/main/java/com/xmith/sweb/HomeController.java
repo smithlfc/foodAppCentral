@@ -105,6 +105,7 @@ return modelAndView;
 }
 else{
 logger.info("binding success");	
+//inserting here
 boolean insertUserRegDetails = services.insertUserRegDetails(userDetails);
 if(insertUserRegDetails){
 ModelAndView modelAndView = new ModelAndView("login");

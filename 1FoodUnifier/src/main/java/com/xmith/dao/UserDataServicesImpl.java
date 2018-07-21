@@ -194,11 +194,14 @@ catch(Exception e){
 logger.info("exception in saveUsers");	
 beginTransaction.rollback();
 }
+finally{
+openSession.close();	
+}
 if(save==null){
 return null;	
 }
 logger.info("saveUsers :Exit");
-return "proper";
+return save.toString();
 }
 
 
@@ -213,16 +216,17 @@ save= openSession.save(userdetails);
 beginTransaction.commit();
 }
 catch(Exception e){
-logger.info("exception in saveUsersDetails");	
-e.printStackTrace();
+logger.info("exception in saveUsers");	
 beginTransaction.rollback();
+}
+finally{
+openSession.close();	
 }
 if(save==null){
 return null;	
 }
-logger.info("saveUsersDetails :Exit");
-return Serializable.class.toString() ;
-
+logger.info("saveUsers :Exit");
+return save.toString();
 }
 
 
@@ -240,11 +244,14 @@ catch(Exception e){
 logger.info("exception in saveUsersAttempts");	
 beginTransaction.rollback();
 }
+finally{
+openSession.close();	
+}
 if(save==null){
 return null;	
 }
 logger.info("saveUsersAttempts :Exit");
-return "proper";
+return save.toString();
 }
 
 

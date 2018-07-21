@@ -15,11 +15,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.xmith.annotations.CheckUserExist;
 
-
+@Entity
+@Table(name="USER_DETAILS")
 public class UserDetails {
 @Id
-@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq")
-@GenericGenerator(name="seq",strategy="uuid")
+@GenericGenerator(name="IdGen",strategy="com.xmith.CustomIdGen.IdGeneratorUserDetails")
+@GeneratedValue(generator="IdGen")
 private String user_id;
 @Size(min=3,max=10,message="user first name must have max length 7")
 @CheckUserExist()

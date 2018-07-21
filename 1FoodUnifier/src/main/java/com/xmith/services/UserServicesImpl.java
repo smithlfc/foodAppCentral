@@ -88,8 +88,23 @@ public class UserServicesImpl implements UserServices {
 public boolean insertUserRegDetails(UserDetails userDetails) {
 logger.info("insertUserRegDetails :Entry");	
 
-String tem=dataservice.saveUsersDetails(userDetails);
-logger.info("dummy print"+ tem);
+String result1 =dataservice.saveUsersDetails(userDetails);
+Users users= new Users();
+users.setUser_id(result1);
+users.setUser_name(userDetails.getUser_first_name());
+users.setUser_password(userDetails.getUser_password());
+users.setUser_enabled("1");
+users.setUser_authority("ROLE_USER");
+users.setUser_token("0");
+String result2 =dataservice.saveUsers(users);
+UserAttempts attempts= new UserAttempts();
+attempts.setUser_id(result1);
+attempts.setUser_attempts("0");
+String result3 =dataservice.saveUsersAttempts(attempts);
+if(result1!=null&&result2!=null&&result3!=null){
+return true;	
+}
+
 
 		
 logger.info("insertUserRegDetails :Exit");	
