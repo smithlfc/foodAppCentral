@@ -41,12 +41,12 @@ try{
 String aheader=httprequest.getHeader("Authorization");
 if(!aheader.isEmpty()){
 	if(this.generator.validateToken(aheader)){
-		Authentication authentication=this.generator.getauthenticated(aheader);
+		boolean authentication=this.generator.getauthenticated(aheader);
 		//SecurityContextHolder.getContext().setAuthentication(authentication);
 		logger.info("security context");
 		//proper
 		chain.doFilter(httprequest, httpresponse);	
-		SecurityContextHolder.getContext().setAuthentication(null);
+		
 	}
 	else{
 		logger.info("token validation error");
@@ -66,7 +66,7 @@ httpresponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
 }
 else{
 chain.doFilter(httprequest, httpresponse);	
-SecurityContextHolder.getContext().setAuthentication(null);
+
 }
 	
 	

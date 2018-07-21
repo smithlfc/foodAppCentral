@@ -161,7 +161,7 @@ public class TokenGenerator {
 	
 	//auth token
 	
-	public Authentication getauthenticated(String token){
+	public boolean getauthenticated(String token){
 		
 		logger.info("getauthenticated Entry");
 	
@@ -182,8 +182,9 @@ public class TokenGenerator {
 				if(tempusers.getUser_token().equalsIgnoreCase(jwtClaimsSet.getJWTID())){
 			      logger.info("token and claims validated");
 			    
-			      return new UsernamePasswordAuthenticationToken(tempusers.getUser_name(), "", Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
+			      //return new UsernamePasswordAuthenticationToken(tempusers.getUser_name(), "", Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
 				
+			      return true;
 				}
 				else{
 					logger.info("exception should be here for hard coded");
@@ -204,7 +205,7 @@ public class TokenGenerator {
 		
 		
 		logger.info("getauthenticated Exit");
-		return null;
+		return false;
 	}
 	
 	
