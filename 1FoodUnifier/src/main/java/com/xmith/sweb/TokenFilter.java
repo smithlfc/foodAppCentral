@@ -45,8 +45,13 @@ if(!aheader.isEmpty()){
 		//SecurityContextHolder.getContext().setAuthentication(authentication);
 		logger.info("security context");
 		//proper
+		if(authentication){
 		chain.doFilter(httprequest, httpresponse);	
-		
+		}
+		else{
+			logger.info("token validation error01");
+			httpresponse.setStatus(HttpServletResponse.SC_FORBIDDEN);	
+		}
 	}
 	else{
 		logger.info("token validation error");

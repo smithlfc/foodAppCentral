@@ -173,6 +173,9 @@ public class TokenGenerator {
 			Base64URL signature=new Base64URL(temp[2]);
 			try {
 				SignedJWT signedJWT= new SignedJWT(header, payload, signature);
+				JWSVerifier jwsVerifier= new RSASSAVerifier((RSAPublicKey)KeysGen.public1);
+		
+				
 				JWTClaimsSet jwtClaimsSet = signedJWT.getJWTClaimsSet();
 				//get name,id,token with id
 				
@@ -182,9 +185,14 @@ public class TokenGenerator {
 				if(tempusers.getUser_token().equalsIgnoreCase(jwtClaimsSet.getJWTID())){
 			      logger.info("token and claims validated");
 			    
+			     
 			      //return new UsernamePasswordAuthenticationToken(tempusers.getUser_name(), "", Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
-				
-			      return true;
+			      logger.info("validate token / verify");
+			      boolean verify = signedJWT.verify(jwsVerifier);
+			      if(verify){
+					return true;	
+					}
+			      return false;
 				}
 				else{
 					logger.info("exception should be here for hard coded");
@@ -192,9 +200,11 @@ public class TokenGenerator {
 				
 					
 				
-			} catch (ParseException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+				return false;
 			}
+			
 			
 			
 		}
