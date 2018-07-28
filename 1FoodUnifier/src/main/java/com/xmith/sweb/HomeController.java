@@ -1,6 +1,7 @@
 package com.xmith.sweb;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -23,8 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nimbusds.jose.proc.SecurityContext;
 import com.xmith.dao.UserDataServices;
 import com.xmith.dao.UserDataServicesImpl;
+import com.xmith.models.UserAccount;
+import com.xmith.models.UserAccountImag;
 import com.xmith.models.UserDetails;
 import com.xmith.services.UserServices;
 
@@ -118,6 +122,34 @@ ModelAndView modelAndView = new ModelAndView("registration");
 return modelAndView;
 }
 
+
+@RequestMapping(value={"/all/secure/getAccounts"},method={RequestMethod.GET,RequestMethod.POST},produces=MediaType.APPLICATION_JSON_VALUE)
+public @ResponseBody List<UserAccountImag>  getAccountdetails(){
+logger.info("getAccountdetails: Entry");
+Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+String userId = services.getUserId(authentication.getName());
+List<UserAccount> accounts = services.getAccounts(userId);
+List<UserAccountImag> accImagelist= new ArrayList<UserAccountImag>();
+//total nonsense but ignore this
+for (UserAccount userAccount : accounts) {
+UserAccountImag accImage= new UserAccountImag();
+
+accImage.setAccount_no(userAccount.getAccount_no());
+accImage.setAccount_type(userAccount.getAccount_type());
+accImage.setIfsc_no(userAccount.getIfsc_no());
+accImage.setUser_id(userAccount.getUser_id());
+accImage.setPrimary(userAccount.getPrimary());
+//for iamges
+if(accImage.getIfsc_no().contains("BKDN")){accImage.setHttimage("http://localhost:8080/sweb/resources/home/dena.jpg");}
+if(accImage.getIfsc_no().contains("SBIN")){accImage.setHttimage("http://localhost:8080/sweb/resources/home/sbi.png");}
+if(accImage.getIfsc_no().contains("ICIC")){accImage.setHttimage("http://localhost:8080/sweb/resources/home/icic.jpg");}
+if(accImage.getIfsc_no().contains("HDFC")){accImage.setHttimage("http://localhost:8080/sweb/resources/home/hdfc.jpg");}
+accImagelist.add(accImage);
+logger.info(accImage.getAccount_no());
+}
+logger.info("getAccountdetails: Exit");
+return accImagelist;
+}
 
 	
 }

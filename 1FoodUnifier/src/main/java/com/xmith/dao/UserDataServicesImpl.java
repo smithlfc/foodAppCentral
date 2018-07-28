@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.xmith.models.UserAccount;
 import com.xmith.models.UserAttempts;
 import com.xmith.models.UserDetails;
 import com.xmith.models.Users;
@@ -252,6 +253,31 @@ return null;
 }
 logger.info("saveUsersAttempts :Exit");
 return save.toString();
+}
+
+
+@Override
+public List<UserAccount> getUserAccounts(String UserId) {
+logger.info("getUserAccounts: Entry");
+Session session = sfactory.openSession();
+Transaction txn = session.beginTransaction();
+List<UserAccount> listAccounts=null;
+
+try{
+Query<UserAccount> query = session.createQuery("from UserAccount");
+listAccounts = query.list();
+txn.commit();
+}
+catch(Exception e){
+txn.rollback();	
+}
+finally{
+session.close();	
+}
+if(listAccounts==null){
+return null;	
+}
+return listAccounts;
 }
 
 

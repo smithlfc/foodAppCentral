@@ -1,6 +1,7 @@
 package com.xmith.services;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.xmith.dao.UserDataServices;
 import com.xmith.dao.UserDataServicesImpl;
+import com.xmith.models.UserAccount;
 import com.xmith.models.UserAttempts;
 import com.xmith.models.UserDetails;
 import com.xmith.models.Users;
@@ -109,6 +111,13 @@ return true;
 		
 logger.info("insertUserRegDetails :Exit");	
 return false;
+}
+
+
+@Override
+public List<UserAccount> getAccounts(String UserId) {
+logger.info("getAccounts :Entry");
+return  dataservice.getUserAccounts(UserId);
 }
 
 

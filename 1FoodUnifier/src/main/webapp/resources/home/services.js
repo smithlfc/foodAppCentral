@@ -19,6 +19,20 @@ return promise;
 
 }
 
+this.getUserAccounts=function(token){
+var req={
+method:'GET',
+url:'http://localhost:8080/sweb/all/secure/getAccounts',
+headers:{
+	'Authorization':token	
+}	
+};
+//request
+console.log("request formed")
+var promise=$http(req);
+return promise;	
+}
+
 
 	
 })
