@@ -9,7 +9,8 @@ var req={
 method:'GET',
 url:'http://localhost:8080/sweb/all/secure/getname',
 headers: {
-'Authorization':token}				
+'Authorization':token
+}				
 };
 
 console.log("in sercice "+token)
@@ -36,6 +37,7 @@ return promise;
 
 this.getAccPvds=function(token){
 var listpvds=["dena","hdfc","icic","sbi"];
+var d="tp";
 return listpvds;	
 }
 

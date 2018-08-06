@@ -56,6 +56,7 @@ this.getAccpvds=function(){
 this.listpvds=service.getAccPvds(this.tokenReceived);	
 this.hideaddacc=false;	
 this.showimage=true;
+cocnsole.log("here...>>>>>>>");
 }
 
 //function 4 goes heer

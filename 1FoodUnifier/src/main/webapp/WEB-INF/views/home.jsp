@@ -93,7 +93,7 @@
 <br>
 
 <div ng-show="c.acclistpsp">
-listaccounts
+listaccounts.....
 </div> 
   
  </div>      
