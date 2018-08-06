@@ -32,6 +32,14 @@ console.log("request formed")
 var promise=$http(req);
 return promise;	
 }
+//this is function for hcoded listproviders
+
+this.getAccPvds=function(token){
+var listpvds=["dena","hdfc","icic","sbi"];
+return listpvds;	
+}
+
+
 
 
 	

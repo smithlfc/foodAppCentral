@@ -73,7 +73,32 @@
       <input type="button" value="getAccounts" ng-click="c.getAccounts()" class="btn btn-info col-lg-4">
     </div>
     <div class="col">
-       <input type="button" value="AddAccount" ng-click="" class="btn btn-info col-lg-4">
+       <input type="button" value="AddAccount" ng-click="c.getAccpvds()" class="btn btn-info col-lg-4">
+ 
+ <div ng-hide="c.hideaddacc">
+ <br>
+
+ <br>
+ <div class="dropdown" >
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown link
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+  <span ng-repeat="apv in c.listpvds">
+    <li class="dropdown-item" ng-click="c.getAccountsofBanks($index)" >{{apv}}</li>
+   </span> 
+  </div>
+</div> 
+<br>
+
+<div ng-show="c.acclistpsp">
+listaccounts
+</div> 
+  
+ </div>      
+       
+       
     </div>
   </div>
 <!-- write logic for add also -->
@@ -86,6 +111,7 @@
 
 <div class="container">
   <div class="row">
+  
     <div class="col col-lg-6">
       <ul class="list-group align-middle">
       <div ng-repeat="x in c.accountlist">

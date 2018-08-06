@@ -6,7 +6,7 @@ var self=this;
 this.showimage=true;
 
 this.accountlist;
-
+this.hideaddacc=true;
 
 this.getData=function(){
 var promise=service.getDataService(this.tokenReceived);
@@ -31,6 +31,7 @@ this.getAccounts=function(){
 var promise=service.getUserAccounts(this.tokenReceived);	
 promise.then(function(response) {
 	//self.AccountList=response.data;
+	console.log(response.data);
 	$scope.c.accountlist=response.data;
 	
 	
@@ -46,9 +47,24 @@ this.showAccDetails=function(index){
 this.AccountShow=$scope.c.accountlist[index];	
 console.log(this.AccountShow);
 this.showimage=false;
+this.hideaddacc=true;	
 
 }
 //function 3
+
+this.getAccpvds=function(){
+this.listpvds=service.getAccPvds(this.tokenReceived);	
+this.hideaddacc=false;	
+this.showimage=true;
+}
+
+//function 4 goes heer
+this.acclistpsp=false;
+this.getAccountsofBanks=function(index){	
+this.acclistpsp=true;
+
+}
+
 
 
 })
