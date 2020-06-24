@@ -27,6 +27,8 @@ public class UserDataServicesImpl implements UserDataServices {
 	
 	@Autowired
 	private SessionFactory sfactory;
+
+	//comment added
 	
 	public void setSfactory(SessionFactory sfactory) {
 		this.sfactory = sfactory;
