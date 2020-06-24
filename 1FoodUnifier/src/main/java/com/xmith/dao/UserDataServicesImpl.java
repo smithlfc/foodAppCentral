@@ -29,6 +29,7 @@ public class UserDataServicesImpl implements UserDataServices {
 	private SessionFactory sfactory;
 
 	//comment added
+	//branch new
 	
 	public void setSfactory(SessionFactory sfactory) {
 		this.sfactory = sfactory;
